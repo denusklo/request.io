@@ -23,27 +23,19 @@ class FirebaseController extends Controller
 {
     protected $database;
 
-    public function __construct()
+    public function __construct(Database $database)
     {
-        $this->database = app('firebase.database');
+        $database = app('firebase.database');
+        $this->database = $database;
+        // $this->database = app('firebase.database');
     }
 
     public function index()
     {
-        // $serviceAccount = ServiceAccount::fromJsonFile(__DIR__ . '/usforus-3e70b-firebase-adminsdk-gk8cq-2ef7bec42a.json');
-        // $firebase = (new Factory)
-        //     ->withServiceAccount($serviceAccount)
-        //     ->withDatabaseUri('https://laraveltesting-bd2b9.firebaseio.com/')
-        //     ->create();
-        // $database = $firebase->getDatabase();
 
         $factory = (new Factory)
-            ->withServiceAccount(__DIR__ . env('GOOGLE_APPLICATION_CREDENTIALS'))
+            ->withServiceAccount(dirname(__DIR__, 3) . env('GOOGLE_APPLICATION_CREDENTIALS'))
             ->withDatabaseUri(env('DATABASE_URI'));
-
-        // $factory = (new Factory)
-        // ->withServiceAccount(__DIR__ . '/usforus-3e70b-firebase-adminsdk-gk8cq-2ef7bec42a.json')
-        // ->withDatabaseUri('https://usforus-3e70b-default-rtdb.asia-southeast1.firebasedatabase.app/');
 
         $database = $factory->createDatabase();
 
