@@ -7,17 +7,6 @@ use Kreait\Firebase;
 use Kreait\Firebase\Factory;
 use Kreait\Firebase\ServiceAccount;
 use Kreait\Firebase\Database;
-// use Dotenv\Dotenv;
-
-// require __DIR__ . '/../../../vendor/autoload.php';
-
-// $dotenv = Dotenv::createImmutable(dirname(__DIR__, 3));
-// $dotenv->load();
-
-// $firebase_credentials = $_ENV['FIREBASE_CREDENTIALS'];
-// $databaseUri = $_ENV['DATABASE_URI'];
-// $credentials_dir = __DIR__ . '\\' . $firebase_credentials;
-
 
 class FirebaseController extends Controller
 {
@@ -45,7 +34,7 @@ class FirebaseController extends Controller
             ]);
 
         //$newPost->getKey(); // => -KVr5eu8gcTv7_AHb-3-
-        //$newPost->getUri(env('DATABASE_URI)); // => https://my-project.firebaseio.com/blog/posts/-KVr5eu8gcTv7_AHb-3-
+        //$newPost->getUri(env('DATABASE_URI)); // 
         //$newPost->getChild('title')->set('Changed post title');
         //$newPost->getValue(); // Fetches the data from the realtime database
         //$newPost->remove();
