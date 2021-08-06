@@ -2,21 +2,33 @@
 
 @section('content')
 <?php
-        // use App\Http\Controllers\FirebaseAuthController;
-        // $authenticator =  new FirebaseAuthController;
-        // $authenticator->authentication();
+        use App\Http\Controllers\FirebaseAuthController;
+        $authenticator =  new FirebaseAuthController;
+        $authenticator->authentication();
     ?>
 
+
 <div class="container">
-    <div class="row justify-content-center">
+    <div class="row">
+        <div class="col-md-12">
+            <?php
+            if(isset($_SESSION['status']))
+            {
+                echo "<h5 class='alert alert-success'>".$_SESSION['status']."</h5>";
+                unset($_SESSION['status']);
+            }
+            ?>
+            <div class="row justify-content-center">
+        </div>
+    </div>
         <div class="col-md-9">
             <div class="card">
-                <div class="card-header">Request</div>
-                {{-- <div class="card-body">
+                <div class="card-header">Your Request</div>
+                <div class="card-body">
                             <?php
                             use App\Http\Controllers\FirebaseController;
                                 $controller = new FirebaseController();
-                                $data = $controller->index();
+                                $data = $controller->indexByUid();
                                 if (is_null($data)) {
                                     echo "Please enter request";
                                 } else {
@@ -65,7 +77,9 @@
                                         <input type="hidden" name="ref" value="<?php echo $arrayKeys[$i]; ?>">
                                         <button type="submit" name="delete_data" class="btn btn-danger" >Delete</button>
                                     </form>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateData<?php echo $i; ?>">Update Data</button>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateData<?php echo $i; ?>">
+                                        Update Data
+                                    </button>
                                     <div class="modal fade" id="updateData<?php echo $i; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
@@ -114,7 +128,7 @@
                                                             </div>
                                                         </div>
                                                         <br>
-                                                        <input type="hidden" name="ref" value="Requests/<?php echo $arrayKeys[$i];?>">
+                                                        <input type="hidden" name="ref" value="<?php echo $arrayKeys[$i];?>">
                                                         <button class="btn btn-primary" type="submit">Submit update</button>
                                                     </form>
                                                 </div>
@@ -130,8 +144,7 @@
                             ?>
                         </tbody>
                     </table>
-                </div> --}}
-                
+                </div>
             </div>
         </div>
         <div class="col-md-3">
@@ -139,23 +152,19 @@
                 <div class="card-body">
                     <a href="{{route('createRequest')}}" class="btn btn-success btn-block">Create New Request</a>
                 </div>
-                <div class="card-body">
-                    There are total
+                {{-- <div class="card-body"> --}}
+                    {{-- There are total --}}
                     <?php
-                        use App\Http\Controllers\FirebaseController;
-                        $controller = new FirebaseController();
-                        $data = $controller->database->getReference('Requests')->getSnapshot()->numchildren();
-                        echo $data;
+                        // use App\Http\Controllers\FirebaseController;
+                        // $controller = new FirebaseController();
+                        // $data = $controller->database->getReference('Requests')->getSnapshot()->numchildren();
+                        // echo $data;
                         // echo json_encode($data, JSON_PRETTY_PRINT);
                     ?>
-                    user/s.
-                </div>
+                    {{-- request/s. --}}
+                {{-- </div> --}}
             </div>
         </div>
     </div>
 </div>
-
-
-
 @endsection
-

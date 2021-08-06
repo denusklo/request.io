@@ -13,6 +13,7 @@
         "laravel/framework": "^8.40",
         "laravel/tinker": "^2.6",
         "laravel/ui": "^3.3",
+        "lcobucci/jwt": "^4.1",
         "symfony/dotenv": "^5.3",
         "vlucas/phpdotenv": "^5.3"
     },

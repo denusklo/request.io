@@ -1,14 +1,29 @@
 @extends('layouts.app')
 
 @section('content')
+
+<?php
+    if (isset($_SESSION['verified_user_id'])) {
+        $_SESSION['status'] = "You are already logged in";
+        header('location: userHome');
+        exit();
+    }
+?>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+            <?php
+            if(isset($_SESSION['status']))
+            {
+                echo "<h5 class='alert alert-light'>".$_SESSION['status']."</h5>";
+                unset($_SESSION['status']);
+            }
+            ?>
             <div class="card">
                 <div class="card-header">{{ __('Login') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
+                    <form method="POST" action="{{ route('firebaseLogin') }}">
                         @csrf
 
                         <div class="form-group row">

@@ -27,28 +27,17 @@ class FirebaseController extends Controller
     {
         $database = $this->database;
 
-        //$newPost->getKey(); // => -KVr5eu8gcTv7_AHb-3-
-        //$newPost->getUri(env('DATABASE_URI)); //
-        //$newPost->getChild('title')->set('Changed post title');
-        //$newPost->getValue(); // Fetches the data from the realtime database
-        //$newPost->remove();
-
-        // $newPost = $database
-        //     ->getReference('blog/posts')
-        //     ->push([
-        //         'title' => 'Post title',
-        //         'body' => 'This should probably be longer.'
-        //     ]);
-
-
-        // $database->getReference('todos')
-        //     ->push([
-        //         'task' => 'Example Task',
-        //         'is_done' => false
-        //     ]);
-
-
         $data = $database->getReference('Requests')->getvalue();
+        $i = 0;
+        return $data;
+    }
+    public function indexByUid()
+    {
+        // $uid = '-MgFNXat5ioqczYm36Sj';
+        $uid = $_SESSION['verified_user_id'];
+        $database = $this->database;
+
+        $data = $database->getReference('Requests/' . $uid)->getvalue();
         $i = 0;
         return $data;
     }
@@ -90,9 +79,9 @@ class FirebaseController extends Controller
             'description' => $description
         ];
 
-        $database->getReference('Requests/')->push($data);
+        $database->getReference('Requests/' . $_SESSION['verified_user_id'])->push($data);
 
-        return redirect()->route('test');
+        return redirect()->route('userHome');
     }
 
     public function updateRequest(Request $request)
@@ -114,7 +103,7 @@ class FirebaseController extends Controller
         $email = $request->email;
         $location = $request->location;
         $description = $request->description;
-        $ref = $request->ref;
+        $ref = "Requests/" . $_SESSION['verified_user_id'] . '/' . $request->ref;
 
         $data = [
             'name' => $name,
@@ -125,9 +114,13 @@ class FirebaseController extends Controller
             'description' => $description
         ];
 
-        $database->getReference($ref)->update($data);
+        $updates = [
+            $ref => $data
+        ];
 
-        return redirect()->route('test');
+        $database->getReference()->update($updates);
+
+        return redirect()->route('userHome');
     }
 
     public function deleteRequest(Request $request)
@@ -135,9 +128,9 @@ class FirebaseController extends Controller
         $database = $this->database;
         $id = $request->ref;
 
-        $ref = "Requests/" . $id;
+        $ref = "Requests/" . $_SESSION['verified_user_id'] . '/' . $id;
         $database->getReference($ref)->remove();
 
-        return redirect()->route('test');
+        return redirect()->route('userHome');
     }
 }
