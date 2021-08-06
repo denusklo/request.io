@@ -17,10 +17,13 @@ class FirebaseController extends Controller
     public function __construct()
     {
         $factory = (new Factory)
-            ->withServiceAccount(dirname(__DIR__, 3) . env('GOOGLE_APPLICATION_CREDENTIALS'))
-            ->withDatabaseUri(env('DATABASE_URI'));
+            // ->withServiceAccount(env('FIREBASE_CREDENTIALS'))
+            ->withDatabaseUri('https://usforus-3e70b-default-rtdb.asia-southeast1.firebasedatabase.app/');
 
         $this->database = $factory->createDatabase();
+
+        // $database = app('firebase.database');
+        // $this->database = $database;
     }
 
     public function index()
