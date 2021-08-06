@@ -36,7 +36,6 @@ class FirebaseController extends Controller
     }
     public function indexByUid()
     {
-        // $uid = '-MgFNXat5ioqczYm36Sj';
         $uid = $_SESSION['verified_user_id'];
         $database = $this->database;
 
