@@ -2,16 +2,16 @@
 
 @section('content')
 <?php
-        // use App\Http\Controllers\FirebaseAuthController;
-        // $authenticator =  new FirebaseAuthController;
-        // $authenticator->authentication();
+        use App\Http\Controllers\FirebaseAuthController;
+        $authenticator =  new FirebaseAuthController;
+        $authenticator->authentication();
     ?>
 
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-9">
             <div class="card">
-                <div class="card-header">Request</div>
+                <div class="card-header">Registered User List</div>
                 {{-- <div class="card-body">
                             <?php
                             use App\Http\Controllers\FirebaseController;
@@ -131,7 +131,49 @@
                         </tbody>
                     </table>
                 </div> --}}
-                
+                <div class="card-body">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>S1.no</th>
+                                <th>Display Name</th>
+                                <th>Phone</th>
+                                <th>Email ID</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                                $auth =  new FirebaseAuthController;
+                                $users = $auth->auth->listUsers();
+                                $i = 1;
+                                foreach ($users as $user)
+                                {
+                                    ?>
+                                    <tr>
+                                        <td><?=$i++;?></td>
+                                        <td><?=$user->displayName?></td>
+                                        <td><?=$user->phoneNumber?></td>
+                                        <td><?=$user->email?></td>
+                                        <td>
+                                            <form action="{{route('editUser')}}" method="get">
+                                                {{ csrf_field() }}
+                                                <input type="hidden" name='uid' value="<?php echo $user->uid;?>">
+                                                <button type="submit" class="btn btn-primary btn-sm">Edit</button>
+                                            </form>
+                                        </td>
+                                        <td>
+                                            <a href="{{route('deleteUser')}}" class="btn btn-danger btn-sm">Delete</a>
+                                        </td>
+
+                                    </tr>
+                                    <?php
+                                }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         <div class="col-md-3">

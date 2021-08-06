@@ -135,4 +135,12 @@ class FirebaseController extends Controller
 
         return redirect()->route('userHome');
     }
+
+    public function deleteUser()
+    {
+    }
+
+    public function updateUser(Request $request)
+    {
+    }
 }

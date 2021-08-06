@@ -140,4 +140,30 @@ class FirebaseAuthController extends Controller
             exit();
         }
     }
+
+    public function editUser(Request $request)
+    {
+        $auth = $this->auth;
+
+        if (isset($_SESSION['uid'])) {
+            $uid = $_SESSION['uid'];
+            try {
+                $user = $auth->getUser($uid);
+                $_SESSION['display_name'] = $user->displayName;
+                $_SESSION['phone'] = $user->phoneNumber;
+                // return redirect()->route('editUser');
+                header('location: editUser');
+                exit();
+            } catch (\Kreait\Firebase\Exception\Auth\UserNotFound $e) {
+                echo $e->getMessage();
+            }
+        }
+
+
+
+        // $_SESSION[''];
+
+        // echo $request->uid;
+        return view('users.editUser');
+    }
 }

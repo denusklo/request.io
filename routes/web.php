@@ -35,9 +35,14 @@ Route::post('testing/delete', [FirebaseController::class, 'deleteRequest'])->nam
 Route::post('testing/store', [FirebaseController::class, 'storeRequest'])->name('storeRequest');
 Route::post('testing/update', [FirebaseController::class, 'updateRequest'])->name('updateRequest');
 
+Route::post('testing/deleteUser', [App\Http\Controllers\FirebaseAuthController::class, 'deleteUser'])->name('deleteUser');
+Route::get('testing/editUser', [App\Http\Controllers\FirebaseAuthController::class, 'editUser'])->name('editUser');
+Route::post('testing/updateUser', [App\Http\Controllers\FirebaseAuthController::class, 'updateUser'])->name('updateUser');
+
 Route::post('register/createUser', [App\Http\Controllers\FirebaseAuthController::class, 'createUser'])->name('createUser');
 Route::post('login/', [App\Http\Controllers\FirebaseAuthController::class, 'login'])->name('firebaseLogin');
 Route::get('logout/', [App\Http\Controllers\FirebaseAuthController::class, 'logout'])->name('firebaseLogout');
+
 
 
 Route::get('testing', function () {
